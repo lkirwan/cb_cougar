@@ -5,4 +5,7 @@
 * npm install
 
 ### Run
-* npm run start
+* Dev. Environment:
+  * `npm run dev`
+* Prod. Environment: 
+  * `npm run start`
