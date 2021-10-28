@@ -44,6 +44,7 @@ exports.update_image = function(req, res) {
 
 exports.delete_image = function(req, res) {
 
+  //TODO: Warning: collection.remove is deprecated
   Image.remove({
     _id: req.params.imageId
   }, function(err, image) {
@@ -79,6 +80,5 @@ exports.convert_image = async function (req, res, next) {
     res.status(500).send({
       message: `Could not upload the file: ${req.file.originalname}. ${err}`,
     });
-  }
-  ;
+  };
 };
