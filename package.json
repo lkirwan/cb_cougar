@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=test PORT=3005 jest --testTimeout=12000",
+    "test": "NODE_ENV=test PORT=3005 jest --testTimeout=12000 --detectOpenHandles",
+    "pretest": "",
+    "coverage": "npm run pretest && jest --coverage && cat ./coverage/lcov.info | coveralls",
     "dev": "nodemon server.js",
     "start": "pm2 start server.js"
   },
@@ -25,6 +27,7 @@
     "multer": "^1.4.3"
   },
   "devDependencies": {
+    "coveralls": "^3.1.1",
     "jest": "^27.2.5",
     "nodemon": "^2.0.13",
     "supertest": "^6.1.6"
