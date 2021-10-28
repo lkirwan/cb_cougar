@@ -2,7 +2,7 @@
 
 var mongoose = require('mongoose'),
   Image = mongoose.model('Images');
-var uploadFile = require("../services/upload");
+var uploadFile = require("../../lib/upload");
 
 
 exports.list_all_images = function(req, res) {
@@ -22,6 +22,7 @@ exports.create_image = function(req, res) {
       console.error(`Image not created! ${err}`);
       res.send(err);
     }
+    res.status(201);
     res.json(image);
     console.debug(`Image successfully created! [id: "${image.get("_id")}", name: "${image.get("name")}", status: "${image.get("status")}"]`);
   });
@@ -88,5 +89,5 @@ exports.convert_image = async function (req, res, next) {
     res.status(500).send({
       message: `Could not upload the file: ${req.file.originalname}. ${err}`,
     });
-  };
+  }
 };
