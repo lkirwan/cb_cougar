@@ -37,7 +37,7 @@ async function deleteAllImages() {
   }
   const response = await request(app).get("/images");
   if (Array.isArray(response.body) && response.body.length)
-    fail(new Error("Not all images were deleted in the test teardown 'afterAll' function"));
+    throw new Error("Not all images were deleted in the test teardown 'afterAll' function");
 }
 
 
@@ -48,7 +48,7 @@ async function createNewImage_postRequest(imageName) {
       name: imageName
     });
   if (newImage.statusCode !== 201 && !newImage.get("_id"))
-    fail(new Error("Image not created successfully"));
+    throw new Error("Image not created successfully");
 
   return newImage;
 }
