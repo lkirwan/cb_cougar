@@ -19,7 +19,7 @@ exports.create_image = function(req, res) {
   var new_image = new Image(req.body);
   new_image.save(function(err, image) {
     if (err) {
-      console.log(`Image not created! ${err}`);
+      console.error(`Image not created! ${err}`);
       res.send(err);
     }
     res.status(201);
@@ -53,7 +53,7 @@ exports.read_image = function(req, res) {
 exports.update_image = function(req, res) {
   Image.findOneAndUpdate({_id:req.params.imageId}, req.body, {new: true}, function(err, image) {
     if (err) {
-      console.log(`Image not updated! ${err}`);
+      console.error(`Image not updated! ${err}`);
       res.send(err);
     }
     res.json(image);
@@ -66,7 +66,7 @@ exports.delete_image = function(req, res) {
 
   Image.deleteOne({_id: req.params.imageId}, function(err, image) {
     if (err) {
-      console.log(`Image not deleted! ${err}`);
+      console.error(`Image not deleted! ${err}`);
       res.send(err);
     }
     res.json({ message: 'Image successfully deleted' });

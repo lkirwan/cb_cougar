@@ -1,5 +1,5 @@
 const db_url = process.env.db_url || 'mongodb://localhost/';
-const  collection_name = process.env.db_name || 'images';
+const collection_name = process.env.db_name || 'images';
 const db_name = process.env.NODE_ENV === "test" ? `${collection_name}_test` : `${collection_name}`;
 const mongoose = require('mongoose');
 
