@@ -2,5 +2,9 @@ language: node_js
 node_js:
   - 'stable'
 install: npm install
+services: mongodb
+before_script:
+  - sleep 15
+  - mongo images_test --eval 'db.createUser({user:"travis",pwd:"test",roles:["readWrite"]});'
 script: npm test
 after_success: npm run coverage
