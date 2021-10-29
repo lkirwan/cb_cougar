@@ -31,10 +31,21 @@ exports.create_image = function(req, res) {
 
 exports.read_image = function(req, res) {
   Image.findById(req.params.imageId, function(err, image) {
-    if (err)
+    if (err && err.name !== "CastError")
       res.send(err);
-    res.json(image);
-    console.debug(`Image successfully retrieved! [id: "${image.get("_id")}", name: "${image.get("name")}", status: "${image.get("status")}"]`);
+    if (!image) {
+      Image.findOne({name: new RegExp('^'+req.params.imageId+'$', "i")}, function (err, image) {
+        if (err)
+          res.send(err);
+        if (image) {
+          res.json(image);
+          console.debug(`Image successfully retrieved! [id: "${image.get("_id")}", name: "${image.get("name")}", status: "${image.get("status")}"]`);
+        }
+      })
+    } else {
+      res.json(image);
+      console.debug(`Image successfully retrieved! [id: "${image.get("_id")}", name: "${image.get("name")}", status: "${image.get("status")}"]`);
+    }
   });
 };
 
@@ -59,7 +70,7 @@ exports.delete_image = function(req, res) {
       res.send(err);
     }
     res.json({ message: 'Image successfully deleted' });
-    console.debug(`Image successfully deleted! [id: "${image.get("_id")}", name: "${image.get("name")}", status: "${image.get("status")}"]`);
+    console.debug(`Image successfully deleted! [id: "${req.params.imageId}"]`);
   });
 };
 
