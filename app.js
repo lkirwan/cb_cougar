@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const dbImpl = process.env.DB_IMPL || 'mongoDB';
+const dbImpl = process.env.DB_IMPL || 'mongodb';
 const bodyParser = require('body-parser');
 
 require('./db/' + dbImpl);
