@@ -100,8 +100,22 @@ describe("GET /images", () => {
     const returnedImageResponse = await request(app).get(`/images/${imageNameEncoded}`);
     expect(returnedImageResponse.statusCode).toBe(200);
     expect(returnedImageResponse.body.name).toBe(testImage2.body.name);
-    expect(returnedImageResponse.body.name).toBe(testImage2.body.name);
     expect(returnedImageResponse.body.status[0]).toBe(testImage2.body.status[0]);
     expect(returnedImageResponse.body.Created_date).toBe(testImage2.body.Created_date);
   })
 });
+
+describe("PUT /images", () => {
+  test("update existing image", async () => {
+    const updatedImageName = `updated ${testImage3.body.name}`;
+    const updatedImageResponse = await request(app)
+      .put(`/images/${testImage3.body._id}`)
+      .send({
+        name: updatedImageName
+      });
+    expect(updatedImageResponse.statusCode).toBe(200);
+    expect(updatedImageResponse.body.name).toBe(updatedImageName);
+    expect(updatedImageResponse.body.status[0]).toBe(testImage3.body.status[0]);
+    expect(updatedImageResponse.body.Created_date).toBe(testImage3.body.Created_date);
+  });
+})
